@@ -106,6 +106,19 @@ def run_denmo(dset_name: str, erosions: int = 5, dilations: int = 5, epochs: int
     model = DenMoNet(size, dilations, erosions, 10)
     run_and_save_model(model, train, test, epochs, dset_name)
 
+    
+def run_dero(dset_name: str, erosions: int = 5, dilations: int = 5, epochs: int = 2):
+    """Run dero on a dataset.
+
+    Datasets:
+        * mnist
+        * fashion_mnist
+        * cifar10
+    """
+    train, test, size = dataset_map[dset_name]()
+    model = DeroNet(size, dilations, erosions, 10)
+    run_and_save_model(model, train, test, epochs, dset_name)
+
 
 def run_baseline(model_name: str, dset_name: str, h_layers: int = 200, epochs: int = 2):
     """Run a baseline model on a dataset.
