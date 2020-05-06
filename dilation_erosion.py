@@ -101,7 +101,7 @@ class DilateErode_modified(nn.Module):
 
     def __init__(self,number_of_dilations: int, number_of_erosions: int):
         super().__init__()
-        self.in_features = in_features
+        
         self.number_of_dilations = number_of_dilations
         self.number_of_erosions = number_of_erosions
 
