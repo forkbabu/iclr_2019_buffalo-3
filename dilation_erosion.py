@@ -152,7 +152,7 @@ class DeroNet(nn.Module):
         lc_size = number_erosions + number_dilations
         self.linear_combination_layer = nn.Linear(lc_size, output_space_dim)
         
-        self.conv1 = nn.Conv2d(input_channels, 50, kernel_size=3)
+        self.conv1 = nn.Conv2d(3, 50, kernel_size=3)
         self.conv2 = nn.Conv2d(50, 100, kernel_size=5)
         self.conv3 = nn.Conv2d(100, 200, kernel_size=5)
         self.conv4 = nn.Conv2d(200, 400, kernel_size=2)
