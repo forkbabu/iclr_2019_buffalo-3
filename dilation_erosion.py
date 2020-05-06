@@ -167,7 +167,7 @@ class DeroNet(nn.Module):
         x = F.relu(F.max_pool2d(self.conv3(x), 2))
         x = F.relu(self.conv4(x), 2)
         print(x.shape)
-        x = x.view(-1, 400,1)
+        x = x.view(x.size()[0],-1,1)
         print(x.shape)
         z = self.de_layer(x)
         print(z.shape)
