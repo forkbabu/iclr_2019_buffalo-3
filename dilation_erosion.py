@@ -99,9 +99,9 @@ class DenMoNet(nn.Module):
 
 class DilateErode_modified(nn.Module):
 
-    def __init__(self,number_of_dilations: int, number_of_erosions: int):
+    def __init__(self,in_features:int ,number_of_dilations: int, number_of_erosions: int):
         super().__init__()
-        
+        self.in_features = in_features
         self.number_of_dilations = number_of_dilations
         self.number_of_erosions = number_of_erosions
 
@@ -146,7 +146,7 @@ class DeroNet(nn.Module):
 
     def __init__(self, input_space_dim: int, number_dilations: int, number_erosions: int, output_space_dim: int):
         super().__init__()
-        self.de_layer = DilateErode_modified(number_dilations, number_erosions)
+        self.de_layer = DilateErode_modified(in_features,number_dilations, number_erosions)
         # The linear combination size is the number of erosions plus the number of dilations, plus
         # one bias node for each (if there's at least one, that is).
         lc_size = number_erosions + number_dilations
