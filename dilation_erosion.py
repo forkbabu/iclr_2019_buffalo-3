@@ -43,7 +43,9 @@ class DilateErode(nn.Module):
     def forward(self, input: torch.Tensor):
         batch_size = input.shape[0]
         flattened = input.view(batch_size, self.in_features, 1)
+        print(flattened.shape)
         flattened_with_bias = torch.cat((flattened, torch.zeros(batch_size, 1, 1).to(device)), dim=1)
+        print(flattened_with_bias.shape)
 
         if self.number_of_dilations > 0:
             # Each dilation is a max of a sum of all the input features.
@@ -102,16 +104,24 @@ class DeroNet(nn.Module):
         # one bias node for each (if there's at least one, that is).
         lc_size = number_erosions + number_dilations
         self.linear_combination_layer = nn.Linear(lc_size, output_space_dim)
-
+        self.dim = input_width
+        self.conv1 = nn.Conv2d(input_channels, 50, kernel_size=3)
+        self.conv2 = nn.Conv2d(50, 100, kernel_size=5)
+        self.conv3 = nn.Conv2d(100, 200, kernel_size=5)
+        self.conv4 = nn.Conv2d(200, 400, kernel_size=2)
+        self.fc1 = nn.Linear(400, 300)
+        self.fc2 = nn.Linear(300, num_classes)
     def name(self, dset_name: str):
         return "dero_{}x{}_{}".format(self.de_layer.number_of_dilations,
                 self.de_layer.number_of_erosions, dset_name)
 
     def forward(self, input: torch.Tensor):
-        temp = self.de_layer(input)
-        self.temp = temp
-        classification = self.linear_combination_layer(temp)
-        return classification
+        x = F.relu(self.conv1(input))
+        x = F.relu(F.max_pool2d(self.conv2(x), 2))
+        x = F.relu(F.max_pool2d(self.conv3(x), 2))
+        x = F.relu(self.conv4(x), 2)
+        x = x.view(-1, 400)
+        
 
     def store(self, dset_name: str, directory: Path):
         name = self.name(dset_name)
