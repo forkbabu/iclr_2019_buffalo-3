@@ -151,7 +151,7 @@ class DeroNet(nn.Module):
         # one bias node for each (if there's at least one, that is).
         lc_size = number_erosions + number_dilations
         self.linear_combination_layer = nn.Linear(lc_size, output_space_dim)
-        self.dim = input_width
+        
         self.conv1 = nn.Conv2d(input_channels, 50, kernel_size=3)
         self.conv2 = nn.Conv2d(50, 100, kernel_size=5)
         self.conv3 = nn.Conv2d(100, 200, kernel_size=5)
