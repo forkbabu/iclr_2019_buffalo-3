@@ -9,7 +9,7 @@ from pathlib import Path
 
 from torch_harness import TorchHarness
 from baseline_models import ReLUNet, TanhNet, MaxoutNet
-from dilation_erosion import DenMoNet
+from dilation_erosion import DenMoNet,DeroNet
 
 data_dir = Path(__file__).parent / 'data'
 model_dir = Path(__file__).parent / 'models'
