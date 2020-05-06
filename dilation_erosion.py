@@ -147,7 +147,7 @@ class DeroNet(nn.Module):
 
     def __init__(self, input_space_dim: int, number_dilations: int, number_erosions: int, output_space_dim: int):
         super().__init__()
-        self.de_layer = DilateErode_modified(input_space_dim,number_dilations, number_erosions)
+        self.de_layer = DilateErode_modified(3600,number_dilations, number_erosions)
         # The linear combination size is the number of erosions plus the number of dilations, plus
         # one bias node for each (if there's at least one, that is).
         lc_size = number_erosions + number_dilations
